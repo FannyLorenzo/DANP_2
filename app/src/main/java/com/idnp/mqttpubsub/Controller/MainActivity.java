@@ -12,6 +12,7 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     TextView contador;
     SensorManager sensorManager;
     Sensor sensor;
+    Sensor sensorAcelerometro;
     SensorEventListener sensorEventListener;
     int i=0;
     float valor =0;
@@ -67,15 +69,27 @@ public class MainActivity extends AppCompatActivity
 
         mqttBroadcastReceiver = new MqttBroadcastReceiver(MainActivity.this);
 
-        contador=(TextView) findViewById(R.id.contador);
-        sensorManager=(SensorManager)getSystemService(SENSOR_SERVICE);
-        sensor=sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        contador = (TextView) findViewById(R.id.contador);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        sensorAcelerometro = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        if(sensor==null)
+        /*  AQUI POR SI NO TENGO EL SENSOR, USA EL ACELEROMETRO */
+        if (sensor != null){
+            System.out.println("Se está trabajando con sensor TYPE_ROTATION_VECTOR ");
+            // aqui deberia iniciarse en ejericico usando este sensor
+            inicioEjercicio(); // creo q es este metodo
+        }else if(sensor==null && sensorAcelerometro !=null ) {
+            System.out.println("Se está trabajando con sensor TYPE_ACCELEROMETER ");
+            // aqui deberia iniciarse en ejericico usando este sensor
+            // josesiño hace método (adentro se aplican los filtros por FAnny)
+            inicioEjercicioConAcelerometro();
+        }else if(sensorAcelerometro ==null) {
+            System.out.println("No se sensores TYPE_ROTATION_VECTOR ni TYPE_ACCELEROMETER ");
             finish();
+        }
 
-
-        inicioEjercicio();
+      //  inicioEjercicio();  se subio arriba, en el caso apliqie
 
 
         Button btnStart = (Button) findViewById(R.id.btnStart);
@@ -149,8 +163,21 @@ public class MainActivity extends AppCompatActivity
         registerReceiver(mqttBroadcastReceiver, intentFilter);
 
         String datetime2 = ToolHelper.getPublishBegin(getApplicationContext());
-        sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_NORMAL);
-        //txtAction.setText(datetime2);
+        // se añadio estoooooo
+        if (sensor != null){
+            System.out.println("Se está trabajando con sensor TYPE_ROTATION_VECTOR ");
+            sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+            //txtAction.setText(datetime2);
+        }else if(sensor==null && sensorAcelerometro !=null ) {
+            System.out.println("Se está trabajando con sensor TYPE_ACCELEROMETER ");
+            sensorManager.registerListener(sensorEventListener, sensorAcelerometro, sensorManager.SENSOR_DELAY_NORMAL);
+            //ejecutar(); // se añadio este metodo OJO
+            //txtAction.setText(datetime2);
+        }else if(sensorAcelerometro ==null) {
+            System.out.println("No se tiene los sensores TYPE_ROTATION_VECTOR ni TYPE_ACCELEROMETER ");
+            finish();
+        }
+
 
     }
 
@@ -171,6 +198,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void display(String data) {
         //txtDisplay.setText(data);
+    }
+    // ESte le añadi Para el Acelerometro pero no probe OJOOOOOOOOOOOOOOOOOOOOOOOO
+    private void start(){
+        sensorManager.registerListener(sensorEventListener, sensorAcelerometro, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
 
@@ -249,5 +280,86 @@ public class MainActivity extends AppCompatActivity
             }
         };
     }
+    float x, y, z;
+    float alpha = (float) 0.8;
+    float [] linear_acceleration =new float[3];
+    float [] gravity = new float[3];
+    private void inicioEjercicioConAcelerometro(){ // metodo que tiene q ser implementado por JOSE
+                                                // ES MEJOR CALCULAR EL GRADO DE INCLINACION QUE LA DISTANCIA, POR AHI LEI Q ES MEJOR
+        sensorEventListener=new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                // recuperando valores del sensor Acelerometro
+                x=event.values[0];
+                y=event.values[1];
+                z=event.values[2];
+                System.out.println(" sin filtros: "+x+ " , "+ y + " , "+z);
+
+               // FILTRO DE PASO ALTO Y BAJO APLICADO A LOS VECTORES DE ACELEROMETRO.
+                alpha = (float) 0.8;
+                gravity =  new float[3];
+                linear_acceleration =  new float[3];
+
+                // Aísle la fuerza de la gravedad con el filtro de paso bajo.
+                gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+                gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+                gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+
+                // Elimina la contribución de la gravedad con el filtro de paso alto.
+                linear_acceleration[0] = event.values[0] - gravity[0];
+                linear_acceleration[1] = event.values[1] - gravity[1];
+                linear_acceleration[2] = event.values[2] - gravity[2];
+
+                // usar los valores de linear_acceleration[] para los CALCULOS
+                System.out.println(" con filtros: "+linear_acceleration[0]+
+                                             " , "+ linear_acceleration[1] +
+                                              " , "+linear_acceleration[2]);
+
+                // ejecutar();// AQUI NO LLAMAR A ESTE METODO, SI NO NO FUNCIONARA LA PAUSA DEL TIEMPO
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+
+
+
+            /* Filtro de paso bajo del libro - no se está usando            *
+            * */
+            public float lowPass(float current, float last, float alpha){
+                return last*(1.0f-alpha) + current*alpha;
+            }
+            /* Filtro de paso alto  del libro - no se está usando            *
+             * */
+            public float highPass(float current, float last, float filtered, float alpha){
+                return alpha * (filtered + current - last);
+            }
+
+        };
+
+        ejecutar(); // AQUI LLAMAMOS AL METODO QUE QUEREMOS QUE SE EJECUTE CADA X TIEMPO
+    }
+    // para activar cada x tiempo un metodo
+    public void ejecutar(){
+        final Handler handler= new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                metodoEjecutar();//llamamos nuestro metodo IMPLEMENTADO
+                handler.postDelayed(this,1000);// 10000 se ejecutara cada 10 segundos // se puso 2000 para 2 segundo
+            }
+        },5000);//empezara a ejecutarse después de 5 milisegundos
+    }
+    public void metodoEjecutar() {
+        //Aqui codigo de lo que haga tu metodo a IMPLEMENTAR
+        //Por ahora solo est'a este print
+        System.out.println(" se ejecutó metodo ");
+        System.out.println(" PAUSADO : "+linear_acceleration[0]+
+                " , "+ linear_acceleration[1] +
+                " , "+linear_acceleration[2]);
+    }
+
+
 
 }

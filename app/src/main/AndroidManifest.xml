@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.idnp.mqttpubsub">
 
     <application
@@ -21,7 +22,8 @@
 
         <receiver
             android:name="com.idnp.mqttpubsub.Controller.MqttBroadcastReceiver"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -37,6 +39,7 @@
 
     </application>
 
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"></uses-feature>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
