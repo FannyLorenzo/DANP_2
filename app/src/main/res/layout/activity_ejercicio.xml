@@ -6,55 +6,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Controller.MainActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="15mm"
-        android:textAlignment="center"
-        android:layout_marginTop="9mm"
         android:layout_marginLeft="3mm"
+        android:layout_marginTop="9mm"
         android:layout_marginRight="3mm"
-        android:textSize="6mm"
-        android:textColor="#17202A"
-        android:textStyle="bold"
         android:text="Contaremos sus repeticiones"
-        />
+        android:textAlignment="center"
+        android:textColor="#009688"
+        android:textSize="6mm"
+        android:textStyle="bold" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="30mm"
         android:layout_marginTop="5mm"
         android:background="@drawable/contar">
     </ImageView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="86dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
         <Button
             android:id="@+id/btnStart"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/boton_general"
+            android:gravity="center"
             android:text="Empezar"
-            android:layout_marginLeft="6dp">
-        </Button>
+            android:textColor="#FFFFFF"></Button>
+
         <Button
             android:id="@+id/btnStop"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/boton_general"
             android:text="Detener"
-            android:layout_marginLeft="8dp">
-        </Button>
+            android:textColor="#FFFFFF"></Button>
+
         <Button
             android:id="@+id/btnPublish"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/boton_general"
             android:text="Publicar"
-            android:layout_marginLeft="6dp">
-        </Button>
+            android:textColor="#FFFFFF"></Button>
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/boton_general"
+            android:gravity="center"
             android:text="Guardar"
-            android:layout_marginLeft="8dp">
-        </Button>
+            android:textColor="#FFFFFF"></Button>
     </LinearLayout>
 
     <TextView

@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity
         }else if(sensor==null && sensorAcelerometro !=null ) {
             System.out.println("Se está trabajando con sensor TYPE_ACCELEROMETER ");
             // aqui deberia iniciarse en ejericico usando este sensor
-            // josesiño hace método (adentro se aplican los filtros por FAnny)
             inicioEjercicioConAcelerometro();
         }else if(sensorAcelerometro ==null) {
             System.out.println("No se sensores TYPE_ROTATION_VECTOR ni TYPE_ACCELEROMETER ");
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity
     public void display(String data) {
         //txtDisplay.setText(data);
     }
-    // ESte le añadi Para el Acelerometro pero no probe OJOOOOOOOOOOOOOOOOOOOOOOOO
+
     private void start(){
         sensorManager.registerListener(sensorEventListener, sensorAcelerometro, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -294,6 +293,25 @@ public class MainActivity extends AppCompatActivity
                 y=event.values[1];
                 z=event.values[2];
                 System.out.println(" sin filtros: "+x+ " , "+ y + " , "+z);
+
+                // implementación del ejercicio
+                if(y<-9){
+                    if (flag==1){
+                        flag=0;
+                    }
+                }
+                if(y>0){
+                    if (flag==0) {
+                        valor = event.values[1];
+                        i++;
+                        contador.setText("" + i);
+                        System.out.println("/****************//");
+                        initMqttService(MqttIntentService.ACTION_PUBLISH);
+                        String datetime2 = ToolHelper.getDateTime();
+                        ToolHelper.setPublishBegin(getApplicationContext(), datetime2);
+                        flag = 1;
+                    }
+                }
 
                // FILTRO DE PASO ALTO Y BAJO APLICADO A LOS VECTORES DE ACELEROMETRO.
                 alpha = (float) 0.8;

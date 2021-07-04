@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MqttPubSub.iml" filepath="$PROJECT_DIR$/.idea/modules/MqttPubSub.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MqttPubSub.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MqttPubSub.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MqttPubSub.iml" filepath="$PROJECT_DIR$/.idea/modules/MqttPubSub.iml" group="MqttPubSub" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="MqttPubSub/app" />
     </modules>
   </component>
 </project>
