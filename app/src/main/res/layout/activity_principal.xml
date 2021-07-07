@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAECEE"
+    android:orientation="vertical"
+    tools:context=".Controller.principal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="9mm"
+        android:textAlignment="center"
+        android:layout_marginTop="9mm"
+        android:layout_marginLeft="3mm"
+        android:layout_marginRight="3mm"
+        android:textSize="4mm"
+        android:textColor="#17202A"
+        android:textStyle="bold"
+        android:text="Ejercicios Disponibles"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="7mm"
+        android:layout_marginRight="3mm"
+        android:layout_marginLeft="3mm"
+        android:textSize="4mm"
+        android:textColor="#17202A"
+        android:textStyle="bold"
+        android:text="Recuerde que:"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10mm"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:layout_marginLeft="3mm"
+            android:textSize="4mm"
+            android:textColor="#17202A"
+            android:text="■"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:textSize="3mm"
+            android:textColor="#17202A"
+            android:text="Debe de realizar los ejercicos de 5 a 10 repeticiones."
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10mm"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:layout_marginLeft="3mm"
+            android:textSize="4mm"
+            android:textColor="#17202A"
+            android:text="■"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:textSize="3mm"
+            android:textColor="#17202A"
+            android:text="Se deben de realizar por lo menos dos veces al dia."
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10mm"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:layout_marginLeft="3mm"
+            android:textSize="4mm"
+            android:textColor="#17202A"
+            android:text="■"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:textSize="3mm"
+            android:textColor="#17202A"
+            android:text="Evitar la inflamación o aumento de dolor en la rodilla."
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10mm"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:layout_marginLeft="3mm"
+            android:textSize="4mm"
+            android:textColor="#17202A"
+            android:text="■"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="7mm"
+            android:layout_marginRight="3mm"
+            android:textSize="3mm"
+            android:textColor="#17202A"
+            android:text="Puede aplicar hielo al finalizar la sesión"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="6mm"
+        android:layout_marginTop="3mm"
+        android:layout_marginLeft="3mm"
+        android:layout_marginRight="3mm"
+        android:textSize="4mm"
+        android:textColor="#17202A"
+        android:textStyle="bold"
+        android:text="Ejercicios:"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="18mm"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ejer1a"
+            android:layout_width="28mm"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3mm"
+            android:layout_marginRight="3mm"
+            android:background="@drawable/redondeado"
+            android:text="Primer Ejercicio"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="3.5mm" />
+
+        <Button
+            android:id="@+id/ejer1b"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="3mm"
+            android:background="@drawable/primer_ejer" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="18mm"
+        android:orientation="horizontal"/>
+
+</LinearLayout>

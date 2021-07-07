@@ -3,6 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.idnp.mqttpubsub">
 
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +22,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.idnp.mqttpubsub.Controller.MainActivity"
-            android:launchMode="singleTop">
+        <activity android:name=".Controller.video"></activity>
+        <activity android:name=".Controller.MainActivity" />
+        <activity android:name=".Controller.principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <receiver
-            android:name="com.idnp.mqttpubsub.Controller.MqttBroadcastReceiver"
+            android:name=".Controller.MqttBroadcastReceiver"
             android:exported="true"
             tools:ignore="Instantiatable">
             <intent-filter>
@@ -30,21 +41,12 @@
         </receiver>
 
         <service
-            android:name="com.idnp.mqttpubsub.Controller.MqttIntentService"
+            android:name=".Controller.MqttIntentService"
             android:exported="false" />
         <service
-            android:name="com.idnp.mqttpubsub.Controller.MqttHelperService"
+            android:name=".Controller.MqttHelperService"
             android:exported="false" />
         <service android:name="org.eclipse.paho.android.service.MqttService" />
-
     </application>
 
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"></uses-feature>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 </manifest>
